@@ -158,8 +158,11 @@ SIMPLE_JWT = {
 # CORS Policy
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", 
-    "http://localhost:3000", 
+    "http://localhost:3000",
+    "https://listy-delta.vercel.app",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 AUTHENTICATION_BACKENDS = [
     'users.backends.EmailBackend', 
