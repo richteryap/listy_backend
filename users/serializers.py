@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
 from .models import CustomUser
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -17,3 +19,26 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+class EmailTokenObtainSerializer(TokenObtainPairSerializer):
+    # explicitly declare the fields we want from the frontend
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        # this securely calls the custom EmailBackend you already created
+        user = authenticate(request=self.context.get('request'), username=email, password=password)
+
+        if not user:
+            raise serializers.ValidationError('Invalid email or password.')
+
+        # if valid, generate the standard JWT tokens
+        refresh = self.get_token(user)
+
+        return {
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+        }

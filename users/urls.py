@@ -1,13 +1,10 @@
 from django.urls import path
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-from .views import RegisterView
+from rest_framework_simplejwt.views import TokenRefreshView
+from .views import RegisterView, EmailTokenObtainView
 
 urlpatterns = [
     # The login endpoint that returns the Access and Refresh tokens
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/', EmailTokenObtainView.as_view(), name='token_obtain_pair'),
     
     # The endpoint React will hit silently in the background to keep the user logged in
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
