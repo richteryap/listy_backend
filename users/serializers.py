@@ -24,6 +24,12 @@ class EmailTokenObtainSerializer(TokenObtainPairSerializer):
     # explicitly declare the fields we want from the frontend
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if 'username' in self.fields:
+            del self.fields['username']
 
     def validate(self, attrs):
         email = attrs.get('email')
