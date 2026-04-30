@@ -160,3 +160,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", 
     "http://localhost:3000", 
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailBackend', 
+    'django.contrib.auth.backends.ModelBackend', 
+]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# & c:/Users/User/Documents/vscode/vscode/listy-backend/backend/.venv/bin/Activate.ps1 
+# .venv/bin/Activate.ps1
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
