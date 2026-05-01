@@ -27,7 +27,8 @@ class UserProfileView(APIView):
             'id': user.id,
             'email': user.email,
             'username': user.username,
-            'birthday': getattr(user, 'birthday', None), 
+            'birthday': getattr(user, 'birthday', None),
+            'avatar_url': getattr(user, 'avatar_url', None),
         })
 
     def put(self, request):
@@ -39,6 +40,9 @@ class UserProfileView(APIView):
         
         if 'birthday' in data:
             user.birthday = data['birthday']
+
+        if 'avatar_url' in data:
+            user.avatar_url = data['avatar_url']
             
         user.save()
         
@@ -48,6 +52,7 @@ class UserProfileView(APIView):
             'email': user.email,
             'username': user.username,
             'birthday': getattr(user, 'birthday', None),
+            'avatar_url': getattr(user, 'avatar_url', None),
         })
 
 class ChangePasswordView(APIView):
